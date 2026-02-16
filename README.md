@@ -1,1 +1,1 @@
-Submission for MESA Practical 2
+Submissions for MESA Practicals
