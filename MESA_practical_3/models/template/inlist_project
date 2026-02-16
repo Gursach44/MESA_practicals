@@ -1,0 +1,47 @@
+! inlist for solar metallicity stars, used for isochrone simulations 
+
+
+&star_job
+
+   ! begin with a pre-main sequence model
+   create_pre_main_sequence_model = .true.
+
+/ ! end of star_job namelist
+
+
+&eos
+
+/ ! end of eos namelist
+
+
+&kap
+
+   ! kap options
+   ! see kap/defaults/kap.defaults
+   use_Type2_opacities = .true.
+   Zbase = 0.0142
+
+/ ! end of kap namelist
+
+
+&controls
+
+   ! starting specifications
+   initial_mass = MASS_PLACEHOLDER ! in Msun units
+   initial_z = 0.0142
+
+   ! stop when central temperature is ~that required for helium fusion
+   log_center_temp_upper_limit = 8d0
+
+   ! to catch lower mass stars, stop when age is 10 billion years
+   max_age = 1d10
+
+   ! reduce number of profiles saved to conserve disk space
+   max_num_profile_models = 5
+
+   ! solver
+   ! options for energy conservation (see MESA V, Section 3)
+   energy_eqn_option = 'dedt'
+   use_gold_tolerances = .true.
+
+/ ! end of controls namelist

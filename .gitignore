@@ -9,3 +9,10 @@ MESA_practical_2/mla_1_star/star
 MESA_practical_2/mla_2_star/star
 MESA_practical_2/mla_4_star/star
 MESA_practical_2/plot.ipynb
+
+MESA_practical_3/models/*/
+MESA_practical_3/models/masses.txt
+MESA_practical_3/models/run_mesa.sh
+!MESA_practical_3/models/template/
+MESA_practical_3/papers_sources/*
+MESA_practical_3/plot.ipynb
