@@ -15,3 +15,9 @@ MESA_practical_3/models/masses.txt
 MESA_practical_3/models/run_mesa.sh
 !MESA_practical_3/models/template/
 MESA_practical_3/papers_sources/*
+
+
+MESA_practical_4/lesson4/star
+MESA_practical_4/lesson4/photos/*
+MESA_practical_4/lesson4/make/*
+MESA_practical_4/lesson4/.mesa_temp_cache/*
