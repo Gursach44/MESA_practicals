@@ -1,0 +1,81 @@
+
+&star_job
+            
+      pgstar_flag = .true.
+      pause_before_terminate = .true.
+
+
+/ ! end of star_job namelist
+
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+   use_Type2_opacities = .true.
+   Zbase = 0.02
+
+/ ! end of kap namelist
+
+
+
+&controls
+
+      !----------------------------------------  MAIN
+       
+      initial_mass = 3.
+      initial_z = 0.02
+ 
+      !----------------------------------------  WIND
+
+      hot_wind_scheme = 'Dutch'
+      cool_wind_RGB_scheme = 'Dutch'
+      cool_wind_AGB_scheme = 'Dutch'
+      RGB_to_AGB_wind_switch = 1d-4
+      Dutch_scaling_factor = 0.8
+
+      max_T_center_for_any_mass_loss = 3.0d9
+      max_T_center_for_full_mass_loss = 2.5d9
+
+      !----------------------------------------  OVERSHOOTING
+
+      !New combined schema: 
+      overshoot_scheme(:) = 'exponential'
+      overshoot_zone_type(:) = 'any'
+      overshoot_zone_loc(:) = 'any'
+      overshoot_bdy_loc(:) = 'any'
+      overshoot_f(:) = 0.025
+      overshoot_f0(:) = 0.01
+
+     
+      !----------------------------------------  MISC
+
+      photo_interval = 100
+      profile_interval = 20
+      max_num_profile_models = 3000
+      history_interval = 10
+      terminal_interval = 10
+      write_header_frequency = 10
+      max_number_retries = 1000
+      max_timestep = 3.15d14  ! in seconds.  max_timestep <= 0 means no upper limit.   
+
+      !----------------------------------------  MESH      
+
+      mesh_delta_coeff = 1
+      varcontrol_target = 1d-3
+ 
+      !----------------------------------------  STOP WHEN
+
+      xa_central_lower_limit_species(1) = 'o16'
+      xa_central_lower_limit(1) = 1.d-5  
+      
+      
+
+/ ! end of controls namelist
+

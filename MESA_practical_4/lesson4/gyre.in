@@ -1,0 +1,59 @@
+&constants
+/
+
+&model
+	model_type = 'EVOL'  ! Obtain stellar structure from an evolutionary model
+	file = '/mnt/c/Users/gurma/Documents/UofT/2025-2026/2. Winter/AST1410/MESA_practicals/MESA_practical_4/lesson4/LOGS_gravity/profile6.data.GYRE'    ! File name of the evolutionary model
+	file_format = 'MESA' ! File format of the evolutionary model
+/
+
+&mode
+	l = 1                ! Harmonic degree
+	m = 1                     ! Azimuthal order possible to include
+        n_pg_min = -75            ! Minimum radial order n to be computed (if located in the scanned frequency range)
+        n_pg_max = -5             ! Maximum radial order n to be computed (if located in the scanned frequency range)
+/
+
+&osc
+        outer_bound = 'VACUUM' ! Use a zero-pressure outer mechanical boundary condition
+/
+
+&rot
+     coriolis_method = 'TAR' ! Method to apply the rotational frequency shift
+     Omega_rot_source = 'UNIFORM' ! Apply a uniform rotation rate
+     	Omega_rot = 0.0 ! rotation rate in rad/s; this value replaces any (lack of) information from the MESA model 
+/
+
+
+&num
+	diff_scheme = 'MAGNUS_GL4' ! 4th-order collocation scheme for difference equations
+/
+
+&scan
+        grid_type = 'INVERSE' ! Scan for modes using a uniform-in-period grid; best for g modes
+        freq_min = 0.25        ! Minimum frequency to scan from
+	freq_max = 8.0        ! Maximum frequency to scan to
+	n_freq = 400          ! Number of frequency points in scan
+	freq_min_units = 'CYC_PER_DAY'    ! The units of freq_min and freq_max are cycles/day
+	freq_max_units = 'CYC_PER_DAY'    ! The units of freq_min and freq_max are cycles/day
+/
+
+&grid
+	w_osc = 10  ! Ensure at least 10 points per wavelength in propagation regions
+	w_exp = 2   ! Ensure at least 2 points per scale length in evanescent regions
+	w_ctr = 5     ! Ensure at least 5 points between center and inner turning point
+/
+
+
+&ad_output
+        summary_file = 'gyre_out/gyre_summary6.txt'                            ! File name for summary file
+	summary_file_format = 'TXT'                             ! Format of summary file
+        summary_item_list = 'M_star,R_star,l,n_pg,omega,freq,freq_units,E_norm' ! Items to appear in summary file
+        detail_template = 'gyre_out/mode.%J.5.txt'                		! File-name template for mode files
+	detail_file_format = 'TXT'                   		! Format of mode files
+        detail_item_list = 'l,n_pg,omega,freq,freq_units,x,xi_r,xi_h'   		! Items to appear in mode files
+	freq_units = 'CYC_PER_DAY'
+/
+
+&nad_output
+/

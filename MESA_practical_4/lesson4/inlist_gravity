@@ -1,0 +1,98 @@
+! Based on Aerts Gravity Mode Lab.
+
+
+&star_job
+
+  show_log_description_at_start = .false. 
+  ! begin with a pre-main sequence model
+    create_pre_main_sequence_model = .false.
+
+  ! save a model at the end of the run
+    save_model_when_terminate = .false.
+    save_model_filename = '1p5M_at_ZAMS.mod'
+
+  ! display on-screen plots
+    pgstar_flag = .true.
+    pause_before_terminate = .true.
+
+/ !end of star_job namelist
+
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+  use_Type2_opacities = .true.
+  Zbase = 0.02
+
+  ! Using the metallicity of Asplund et al. (2009) and OPAL type I opacity tables
+  !initial_zfracs = 6
+  kap_file_prefix = 'a09'
+  kap_lowT_prefix = 'lowT_fa05_a09p'
+
+
+/ ! end of kap namelist
+
+
+&controls
+
+  ! starting specifications
+    initial_mass = 3 ! in Msun units
+
+  ! Control some of the output locations:
+    profile_interval = 25
+    log_directory = 'LOGS_gravity'
+    
+    write_pulse_data_with_profile = .true. ! We save GYRE input files together with the "traditional" MESA output
+    pulse_data_format = 'GYRE'
+
+  ! stop when the star nears ZAMS (Lnuc/L > 0.99)
+  !  Lnuc_div_L_zams_limit = 0.99d0
+  !  stop_near_zams = .true.
+
+  ! stop when the center mass fraction of h1 drops below this limit
+    xa_central_lower_limit_species(1) = 'h1'
+    xa_central_lower_limit(1) = 1d-3
+
+
+!! OTHER STUFF from C. Aerts
+
+     
+      ! Controlling the mixing length of the convection zones
+      mixing_length_alpha = 1.8
+      MLT_option = 'Henyey'
+      
+      ! Using the Ledoux criterion to evaluate the convective (in)stability
+      use_Ledoux_criterion = .True.
+      alpha_semiconvection = 0.01
+      
+      ! Defining the (exponential) overshooting
+      overshoot_scheme(:) = 'exponential'
+      overshoot_zone_type(:) = 'burn_H'
+      overshoot_zone_loc(:) = 'core'
+      overshoot_bdy_loc(:) = 'top'
+      overshoot_f(:) = 0.006
+      overshoot_f0(:) = 0.001
+
+      ! Defining a minimum diffusive mixing (applicable in the radiative zones)
+      set_min_D_mix = .true.
+      min_D_mix = 1.0
+      
+      ! Overshooting shuts off when the exponential decay has dropped the diffusion coefficient to this level.
+      ! This value has to be lower than min_D_mix.
+      overshoot_D_min = 5d-2
+      
+      ! if > 0, N^2 is smoothed, introducing noise in the period spacing patterns: we do not want this!
+      num_cells_for_smooth_brunt_B = 0 
+      
+ 
+
+
+
+/ ! end of controls namelist
